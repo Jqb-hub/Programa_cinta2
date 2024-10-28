@@ -1,72 +1,37 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 char LeerVel(void);
 
+const char LecturaVelocidad[]="01 03 14 27 00 02 71 F0";
+const char LecturaCorriente[]="01 03 14 4F 00 02 F0 2C";
+const char LecturaPar[]="01 03 14 59 00 01 11 E8";
+const char LecturaPotencia[]="01 03 14 63 00 02 31 E5";
+const char LecturaTension[]="01 03 14 77 00 01 71 E1";
+const char LecturaTemperatura[]="01 03 14 F9 00 01 11 CA";
+
+
 int main (void){
-    char velocidad;
-    velocidad = LeerVel();
-
+    int velocidad, corriente, par, potencia, tension, temperatura;
+    velocidad = LeerParam(LecturaVelocidad);
+    corriente = LeerParam(LecturaCorriente);
+    par = LeerParam(LecturaPar);
+    potencia = LeerParam(LecturaPotencia);
+    tension = LeerParam(LecturaTension);
+    temperatura = LeerParam(LecturaTemperatura);
+    printf(velocidad,"\n",corriente,"\n",par,"\n",potencia,"\n",tension,"\n",temperatura);
 }
 
-char LeerVel(void){
-    int respuesta_vel;
-    char resp_vel_edit;
-    char com_vel[] = ""; //Comando de lectura a enviar
+int LeerParam(char param_lectura[]){ 
+    int respuesta;
+    char resp_edit;
+    //Comando de lectura a enviar
     //Enviar Comando de lectura de alguna forma
     //Recibir respuesta con valor leido
-    char resp_vel_RAW[]=""; //Valor que deberia llegar
-    resp_vel_edit = RecortarString(resp_vel_RAW);
-    respuesta_vel = strtol(resp_vel_edit,NULL,16) * 0.001;    //Convertir valor HEX a DEC con factor aplicado
-}
-char LeerAmps(void){
-    int respuesta_par;
-    char resp_amps_edit;
-    char com_amps[] = ""; //Comando de lectura a enviar
-    //Enviar Comando de lectura de alguna forma
-    //Recibir respuesta con valor leido
-    char resp_amps_RAW[]=""; //Valor que deberia llegar
-    resp_amps_edit = RecortarString(resp_amps_RAW);
-    respuesta_par = strtol(resp_amps_edit,NULL,16) * 0.001;    //Convertir valor HEX a DEC con factor aplicado
-}
-char LeerPar(void){
-    int respuesta_par;
-    char resp_par_edit;
-    char rom_par[] = "01 03 14 27 00 02 71 F0"; //Comando de lectura a enviar
-    //Enviar Comando de lectura de alguna forma
-    //Recibir respuesta con valor leido
-    char resp_par_RAW[]="01 03 04 00 00 27 0E 60 07"; //Valor que deberia llegar
-    resp_par_edit = RecortarString(resp_par_RAW);
-    respuesta_par = strtol(resp_par_edit,NULL,16) * 0.001;    //Convertir valor HEX a DEC con factor aplicado
-}
-char LeerPot(void){
-    int respuesta_pot;
-    char resp_pot_edit;
-    char rom_pot[] = "01 03 14 27 00 02 71 F0"; //Comando de lectura a enviar
-    //Enviar Comando de lectura de alguna forma
-    //Recibir respuesta con valor leido
-    char resp_pot_RAW[]="01 03 04 00 00 27 0E 60 07"; //Valor que deberia llegar
-    resp_pot_edit = RecortarString(resp_pot_RAW);
-    respuesta_pot = strtol(resp_pot_edit,NULL,16) * 0.001;    //Convertir valor HEX a DEC con factor aplicado
-}
-char LeerTens(void){
-    int respuesta_tens;
-    char resp_tens_edit;
-    char rom_tens[] = "01 03 14 27 00 02 71 F0"; //Comando de lectura a enviar
-    //Enviar Comando de lectura de alguna forma
-    //Recibir respuesta con valor leido
-    char resp_tens_RAW[]="01 03 04 00 00 27 0E 60 07"; //Valor que deberia llegar
-    resp_tens_edit = RecortarString(resp_tens_RAW);
-    respuesta_tens = strtol(resp_tens_edit,NULL,16) * 0.001;    //Convertir valor HEX a DEC con factor aplicado
-}
-char LeerTemp(void){
-    int respuesta_temp;
-    char resp_temp_edit;
-    char rom_temp[] = "01 03 14 27 00 02 71 F0"; //Comando de lectura a enviar
-    //Enviar Comando de lectura de alguna forma
-    //Recibir respuesta con valor leido
-    char resp_temp_RAW[]="01 03 04 00 00 27 0E 60 07"; //Valor que deberia llegar
-    resp_temp_edit = RecortarString(resp_temp_RAW);
-    respuesta_temp = strtol(resp_temp_edit,NULL,16) * 0.001;    //Convertir valor HEX a DEC con factor aplicado
+    char resp_RAW[]=""; //Valor que deberia llegar
+    resp_edit = RecortarString(resp_RAW);
+    respuesta = strtol(resp_edit,NULL,16) * 0.001;    //Convertir valor HEX a DEC con factor aplicado
+    return respuesta;
 }
 
 char RecortarString(char string_recortar[]){
